@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AdventOfCode 2021 - 1.12.</title>
+</head>
+<body>
+<script>
+    const request = new XMLHttpRequest();
+    request.addEventListener('load', function(event) {
+        let count = 0;
+        if (request.status === 200) {
+            const respText= request.responseText;
+            const input = respText.split(/\s+/);
+            let last = -1;
+            document.writeln("<ul>")
+            for (let i = 2; i < input.length; i++) {
+
+                document.write("<li>")
+                let numVal = eval(input[i]) + eval(input[i-1]) + eval(input[i-2]);
+                document.write(numVal + " ")
+                if (last > 0 && numVal > last) {
+                    count++;
+                    document.write("+");
+                }
+                last = numVal;
+                document.write("</li>")
+            }
+            document.writeln("<hr/>")
+            document.write("<code>The result is: " + count + "</code>")
+
+        }
+    });
+    request.open('GET', '1a.txt', true);
+    request.send();
+</script>
+</body>
+</html>
